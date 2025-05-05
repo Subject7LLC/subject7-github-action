@@ -1,0 +1,38 @@
+name: Subject7 GitHub Action
+description: GitHub CI/CD Action that enables users to trigger Subject7 Execution Sets directly from GitHub pipelines.
+author: Subject7,LLC
+
+# Icon of the action (it will appear on the GitHub Marketplace)
+branding:
+  icon: check-square
+  color: orange
+
+inputs:
+  url:
+    description: URL of the Subject7 Instance where the tests should be run
+    required: true
+  api_token:
+    description: The secrets that will be used in Subject7 REST calls
+    required: true
+  execution_set_names:
+    description: |
+      Names of the execution sets that should be run.
+      Names should be separated with comma, e.g. name1,name2,...,nameN
+    required: true
+  project_name:
+    description: |
+      Name of the Subject7 Project where the execution sets should be executed.
+      If value is not set then the default project "Common" will be used
+    required: false
+  version_name:
+    description: |
+      Name of the Subject7 Version where the execution sets should be executed. Version should belong to the specified project.
+      If value is not set then the default version "default" will be used
+    required: false
+outputs:
+  result:
+    description: True if all tests pass, False - if some test fails
+
+runs:
+  using: node20
+  main: dist/index.js

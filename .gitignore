@@ -1,0 +1,10 @@
+# Dependency directory
+node_modules
+
+# Intellij IDE
+.idea
+*.iml
+*.iws
+
+# MacOS
+.DS_Store

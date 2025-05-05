@@ -1,0 +1,36 @@
+name: Subject7 CI Action Demo
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Subject7 Instance URL
+        required: true
+      execution_set_names:
+        description: Execution Set names
+        required: true
+      project_name:
+        description: Subject7 Project name
+        required: false
+      version_name:
+        description: Subject7 Version name
+        required: false
+jobs:
+  run-demo:
+    name: Run Demo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Run Subject7 tests
+        id: run-tests
+        uses: ./
+        with:
+          url: ${{ inputs.url }}
+          api_token: ${{ secrets.SUBJECT7_API_TOKEN_DEMO }}
+          execution_set_names: ${{ inputs.execution_set_names }}
+          project_name: ${{ inputs.project_name }}
+          version_name: ${{ inputs.version_name }}
+      - name: Print result
+        id: printResult
+        run: echo "Do the tests passed? - ${{steps.run-tests.outputs.result}}"
